@@ -17,6 +17,7 @@ spec:
       containers:
         - name: multi-arch-demo
           image: ghcr.io/saversux/multi-arch-demo:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
       tolerations:
