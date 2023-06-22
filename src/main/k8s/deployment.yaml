@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-arch-deployment
+  labels:
+    app: multi-arch-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: multi-arch-demo
+  template:
+    metadata:
+      labels:
+        app: multi-arch-demo
+    spec:
+      containers:
+        - name: multi-arch-demo
+          image: ghcr.io/saversux/multi-arch-demo:latest
+          ports:
+            - containerPort: 8080
+      tolerations:
+        - key: kubernetes.io/arch
+          operator: Equal
+          value: arm64
+          effect: NoSchedule
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: multi-arch-service
+spec:
+  selector:
+    app: multi-arch-demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: multi-arch-ingress
+spec:
+  defaultBackend:
+    service:
+      name: multi-arch-service
+      port:
+        number: 80
+
