@@ -61,5 +61,5 @@ jobs:
         push: true
         platforms: linux/amd64,linux/arm64
         file: src/main/docker/Dockerfile.jvm
-        tags: jre
+        tags: ghcr.io/saversux/multi-arch-demo:jre
         labels: ${{ steps.meta.outputs.labels }}
