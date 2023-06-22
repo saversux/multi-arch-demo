@@ -45,5 +45,5 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           file: src/main/docker/Dockerfile.native
-          tags: latest
+          tags: ghcr.io/saversux/multi-arch-demo:latest
           labels: ${{ steps.meta.outputs.labels }}
